@@ -1,11 +1,11 @@
 import pino from 'pino-http'
 import type {Options} from 'pino-http'
 
-import env from './env'
+const logLevel = process.env.LOG_LEVEL
 
 const loggerOptions: Record<'development' | 'production', Options> = {
   development: {
-    level: env.server.logLevel,
+    level: logLevel,
     autoLogging: false,
     transport: {
       target: 'pino-pretty',
@@ -16,11 +16,11 @@ const loggerOptions: Record<'development' | 'production', Options> = {
     },
   },
   production: {
-    level: env.server.logLevel,
+    level: logLevel,
   },
 }
 
-const opts = loggerOptions[env.server.nodeEnv]
+const opts = loggerOptions[process.env.NODE_ENV]
 const log = pino(opts).logger
 
 export {log}

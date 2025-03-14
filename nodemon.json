@@ -1,7 +1,7 @@
 {
   "watch": ["server"],
   "ext": "ts",
-  "exec": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.development ./server/start",
+  "exec": "tsx --env-file=.env --env-file-if-exists=.env.development ./server/index",
   "env": {
     "NODE_ENV": "development",
     "NODE_NO_WARNINGS": "1"

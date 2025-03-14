@@ -19,7 +19,7 @@
     "fix": "biome check --fix",
     "format": "biome format --write .",
     "dev": "nodemon",
-    "start": "NODE_ENV=production node --env-file-if-exists=.env --env-file-if-exists=.env.production ./build/fastify/start.js",
+    "start": "NODE_ENV=production node --env-file=.env --env-file-if-exists=.env.production ./build/fastify/server",
     "tsc": "tsc",
     "typegen": "react-router typegen"
   },
@@ -28,13 +28,15 @@
     "@react-router/node": "^7.3.0",
     "@react-router/serve": "^7.3.0",
     "@tanstack/react-query": "^5.67.3",
+    "clsx": "^2.1.1",
     "fastify": "^5.2.1",
     "get-port": "^7.1.0",
     "isbot": "^5.1.23",
     "pino-http": "^10.4.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.3.0"
+    "react-router": "^7.3.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -54,6 +56,7 @@
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
     "vite": "^6.2.1",
+    "vite-env-only": "^3.0.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.0.8"
   },

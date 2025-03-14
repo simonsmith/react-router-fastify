@@ -2,27 +2,33 @@ import {reactRouterFastify} from '@mcansh/remix-fastify/react-router'
 import {fastify} from 'fastify'
 import getPort, {portNumbers} from 'get-port'
 import {usersRouter} from './api/users'
-import env from './util/env'
 import {log} from './util/log'
+
+const {
+  LOG_LEVEL: logLevel,
+  HOST: host,
+  PORT: port,
+  NODE_ENV: nodeEnv,
+} = process.env
 
 const app = fastify({
   loggerInstance: log,
-  disableRequestLogging: !env.server.isProduction,
+  disableRequestLogging: nodeEnv === 'development',
 })
 
 app.register(reactRouterFastify)
 app.register(usersRouter, {prefix: '/api'})
 
 const startServer = async () => {
-  const desiredPort = Number(env.server.port)
+  const desiredPort = Number(port)
   const portToUse = await getPort({
     port: portNumbers(desiredPort, desiredPort + 100),
   })
 
   try {
-    const address = await app.listen({port: portToUse, host: env.server.host})
-    log.info(`🚀 Server started in ${env.server.nodeEnv} mode at ${address}`)
-    log.info(`🤖 Log level: "${env.server.logLevel}"`)
+    const address = await app.listen({port: portToUse, host})
+    log.info(`🚀 Server started in ${nodeEnv} mode at ${address}`)
+    log.info(`🤖 Log level: "${logLevel}"`)
 
     if (portToUse !== desiredPort) {
       log.warn(
@@ -30,7 +36,9 @@ const startServer = async () => {
       )
     }
   } catch (error) {
-    log.error(error instanceof Error ? error.message : 'Failed to start server')
+    if (error instanceof Error) {
+      log.error(error.message)
+    }
     process.exit(1)
   }
 }

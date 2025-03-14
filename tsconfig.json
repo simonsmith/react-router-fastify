@@ -27,10 +27,10 @@
     "paths": {
       "@client/*": ["./client/*"],
       "@server/*": ["./server/*"],
-      "@routes/*": ["./client/routes/*"],
-      "@components/*": ["./client/components/*"],
-      "@util/*": ["./client/util/*"],
-      "@t/*": ["./types/*"]
+      "@features/*": ["./client/features/*"],
+      "@common/*": ["./client/common/*"],
+      "@shared/*": ["./shared/*"],
+      "@rr/*": ["./.react-router/types/client/features/*"]
     },
     "noEmit": true,
     "rootDirs": [".", "./.react-router/types"],

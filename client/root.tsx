@@ -1,6 +1,6 @@
-import {QueryClientProvider} from '@tanstack/react-query'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
-import {queryClient} from '@util/react-query'
+import {useState} from 'react'
 import {Links, Meta, Outlet, Scripts, ScrollRestoration} from 'react-router'
 import type {LinksFunction} from 'react-router'
 
@@ -25,6 +25,16 @@ export const Layout = ({children}: {children: React.ReactNode}) => (
 )
 
 export default function App() {
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 30 * 1000,
+          },
+        },
+      }),
+  )
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
